@@ -330,6 +330,9 @@ class MlkitScannerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Life
                 "Zoom is not supported on this device",
                 null
             )
+            if (result == initialMethodResult) {
+                initialMethodResult = null
+            }
             false
         }
     }
