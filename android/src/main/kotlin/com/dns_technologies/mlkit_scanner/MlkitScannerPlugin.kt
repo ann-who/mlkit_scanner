@@ -279,8 +279,10 @@ class MlkitScannerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Life
             setCropArea(initialScannerParameters!!.cropRect!!)
         }
 
-        initialMethodResult?.success(true)
-        initialMethodResult = null
+        if (initialMethodResult != null) {
+            initialMethodResult?.success(true)
+            initialMethodResult = null
+        }
         isAlreadyInitialized = true
     }
 
@@ -318,6 +320,9 @@ class MlkitScannerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Life
     private fun trySetZoom(value: Double, result: Result?): Boolean {
         return try {
             camera?.setZoom(value.toFloat())
+            if (result == initialMethodResult) {
+                initialMethodResult = null
+            }
             true
         } catch (e: ZoomNotSupportedException) {
             result?.error(
