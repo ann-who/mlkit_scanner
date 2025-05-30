@@ -266,6 +266,8 @@ class MlkitScannerPlugin : FlutterPlugin, MethodCallHandler, ActivityAware, Life
     }
 
     private fun onInitSuccess() {
+        if (isAlreadyInitialized) return
+        
         if (analyzer != null) {
             camera?.attachAnalyser(analyzer!!)
         }
